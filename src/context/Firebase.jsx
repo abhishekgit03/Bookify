@@ -1,6 +1,6 @@
-import { createContext, useContext, useState,useEffect} from "react";
+import { createContext, useContext, useState,useEffect, Nav} from "react";
 import { initializeApp } from "firebase/app";
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth"
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth"
 
 const FirebaseContext=createContext(null);
 
@@ -20,19 +20,11 @@ const firebaseConfig = {
 
   export const FirebaseProvider =(props)=>
   {
-    const [user,setUser] = useState(null)
-
-    useEffect(()=>{
-      onAuthStateChanged(auth,(user)=>{
-          if(user)
-            setUser(user);
-          else
-            setUser(null);
-      })
-    },[])
-
+   
     const signupUser=(email,password)=>
     {
+      setPersistence(auth, browserSessionPersistence)
+      .then(()=>{
       return createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential)=>
       {
@@ -45,29 +37,33 @@ const firebaseConfig = {
         alert("Error:",err.message)
         console.log("Registration not successful:",err)
       })
+    })
     }
 
     const signinUser=(email,password)=>
     {
-      return signInWithEmailAndPassword(auth,email,password)
-      .then((userCredential)=>
-      {
-        const user =userCredential.user
-        console.log("Login successful:",user)
-        alert("Login Successful")
+      setPersistence(auth, browserSessionPersistence)
+      .then(()=>{
+        return signInWithEmailAndPassword(auth,email,password)
+        .then((userCredential)=>
+        {
+          const user =userCredential.user
+          console.log("Login successful:",user)
+          alert("Login Successful")
+        })
+        .catch((err)=>
+        {
+          alert("Login Failed!")
+          console.log("Login not successful:",err)
+        })
       })
-      .catch((err)=>
-      {
-        alert("Login Failed!")
-        console.log("Login not successful:",err)
-      })
+      
     }
-
-      const isLoggedIn =user? true: false
     return (
         <FirebaseContext.Provider value=
         {{signupUser,
-          signinUser
+          signinUser,
+          auth
         }}>
             {props.children}
         </FirebaseContext.Provider>

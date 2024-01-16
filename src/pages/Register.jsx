@@ -1,10 +1,33 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
+import { useNavigate } from "react-router-dom"
 import { useFirebase } from '../context/Firebase'
+import {onAuthStateChanged} from "firebase/auth"
 
 function Register() {
     const firebase=useFirebase()
     const [email,setEmail] =useState('')
     const [password,setPassword] =useState('')
+    const [user,setUser]=useState(null);
+    const navigate =useNavigate()
+
+    useEffect(()=>{
+      onAuthStateChanged(firebase.auth,(user)=>
+      {
+        if(user)
+        {
+          setUser(user);
+          console.log(user)
+          navigate("/")
+        }
+        else
+        {
+          console.log("You are logged out");
+          setUser(null);
+        }
+      })
+    },[])
+    
+   
   return (
     <div>
     <section class="bg-gray-50 dark:bg-gray-900">
