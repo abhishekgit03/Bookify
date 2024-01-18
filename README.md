@@ -10,5 +10,7 @@ Currently, two official plugins are available:
 ![image](https://github.com/abhishekgit03/Bookify/assets/92089364/9484940f-bab5-4d9c-81d7-66c5786fd1ee)
 ![image](https://github.com/abhishekgit03/Bookify/assets/92089364/1654b1bb-869f-4981-be5d-fba0e05b5f52)
 ![image](https://github.com/abhishekgit03/Bookify/assets/92089364/9175819e-4dee-41a1-a220-dd313a13c7e6)
+![image](https://github.com/abhishekgit03/Bookify/assets/92089364/51de5c96-af19-4282-aa5d-9973e500f4f0)
+
 
 
