@@ -102,6 +102,7 @@ const firebaseConfig = {
       {
         const docRef =doc(firestore,"books",id);
         const result =await getDoc(docRef)
+        console.log(result.data())
         return result;
       }
 
