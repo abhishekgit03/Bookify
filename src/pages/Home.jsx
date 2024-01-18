@@ -12,8 +12,9 @@ function Home() {
     }, [])
     // console.log(books[0].data())
   return (
-    <div>
-    <div className='container mt-5 flex gap-6 justify-center'>
+    <div  className="flex items-center justify-center flex-col px-8">
+    <div className='mt-5  font-extrabold text-4xl text-regal-blue'>Available Books</div>
+    <div className='container mt-5 flex flex-wrap   flex-col sm:flex-row  gap-6 justify-center'>
         {books.map((book)=>(
           <BookCard
           link={`/book/view/${book.id}`}

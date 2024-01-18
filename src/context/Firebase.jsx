@@ -106,6 +106,16 @@ const firebaseConfig = {
         return result;
       }
 
+      const placeOrder= async (bookId, qty) =>
+      {
+        const collectionRef = collection(firestore, "books", bookId, "orders")
+        const result= await addDoc(collectionRef,{
+          userEmail:auth.currentUser.email,
+          qty: Number(qty)
+        })
+        return result
+      }
+
     
     return (
         <FirebaseContext.Provider value=
@@ -115,7 +125,8 @@ const firebaseConfig = {
           auth,
           listAllBooks,
           getImageURL,
-          getBookById
+          getBookById,
+          placeOrder
         }}>
             {props.children}
         </FirebaseContext.Provider>

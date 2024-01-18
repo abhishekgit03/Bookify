@@ -28,7 +28,7 @@ const BookCard = (props) => {
     //     </Button>
     //   </Card.Body>
     // </Card>
-          <div class="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96 ">
+          <div class="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl sm:w-96 w-40">
             <div class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-72">
               <img
                 src={url}
@@ -36,11 +36,11 @@ const BookCard = (props) => {
             </div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-2">
-                <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                <p class="block font-sans font-bold antialiased leading-relaxed text-regal-blue">
                 {props.name}
                 </p>
                 <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                {props.price}
+                Rs.{props.price}
                 </p>
               </div>
               <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75">
