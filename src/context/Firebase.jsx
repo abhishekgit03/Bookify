@@ -5,8 +5,8 @@ import {getAuth,
    signInWithEmailAndPassword,
    setPersistence, 
    browserSessionPersistence } from "firebase/auth"
-import {getFirestore, collection, addDoc} from "firebase/firestore"
-import {getStorage, ref, uploadBytes} from "firebase/storage"
+import {getFirestore, collection, addDoc, getDocs, getDoc, doc} from "firebase/firestore"
+import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
 
 
 const FirebaseContext=createContext(null);
@@ -72,7 +72,7 @@ const firebaseConfig = {
       })
     }
    
-      const handleCreateNewListing = async (name,isbn,price,cover)=>
+      const handleCreateNewListing = async (name,price,isbn,cover)=>
       {
        
           const imageRef=ref(storage,`uploads/images/${Date.now()}-${cover.name}`)
@@ -87,6 +87,24 @@ const firebaseConfig = {
             userEmail: auth.currentUser.email
           })
       }
+
+      const listAllBooks =()=>
+      {
+        return getDocs(collection(firestore,"books"))
+      }
+
+      const getImageURL= (path)=>
+      {
+        return getDownloadURL(ref(storage,path))
+      }
+
+      const getBookById= async (id)=>
+      {
+        const docRef =doc(firestore,"books",id);
+        const result =await getDoc(docRef)
+        return result;
+      }
+
     
     return (
         <FirebaseContext.Provider value=
@@ -94,6 +112,9 @@ const firebaseConfig = {
           signinUser,
           handleCreateNewListing,
           auth,
+          listAllBooks,
+          getImageURL,
+          getBookById
         }}>
             {props.children}
         </FirebaseContext.Provider>
