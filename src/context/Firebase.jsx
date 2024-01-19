@@ -5,7 +5,14 @@ import {getAuth,
    signInWithEmailAndPassword,
    setPersistence, 
    browserSessionPersistence } from "firebase/auth"
-import {getFirestore, collection, addDoc, getDocs, getDoc, doc} from "firebase/firestore"
+import {getFirestore,
+   collection,
+    addDoc, 
+    getDocs,
+    getDoc,
+    doc,
+    query,
+    where} from "firebase/firestore"
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
 
 
@@ -78,7 +85,7 @@ const firebaseConfig = {
           const imageRef=ref(storage,`uploads/images/${Date.now()}-${cover.name}`)
           const uploadResult= await uploadBytes(imageRef,cover)
           console.log(uploadResult)
-          console.log(auth.currentUser)
+          console.log(auth.currentUser.email)
           return await addDoc(collection(firestore, "books"),{
             name,
             isbn,
@@ -116,6 +123,23 @@ const firebaseConfig = {
         return result
       }
 
+      const fetchmyBooks= async (useremail)=>
+      {
+        const collectionRef = collection(firestore,"books");
+        const q =query(collectionRef, where("userEmail", "==", useremail))
+        const result =await getDocs(q)
+        return result
+      }
+
+      const getOrders = async(bookId) =>
+      {
+        const collectionRef = collection(firestore, "books", bookId, "orders");
+        const result = await getDocs(collectionRef);
+        return result;
+      }
+
+      const isLoggedin = auth
+      
     
     return (
         <FirebaseContext.Provider value=
@@ -126,7 +150,10 @@ const firebaseConfig = {
           listAllBooks,
           getImageURL,
           getBookById,
-          placeOrder
+          placeOrder,
+          fetchmyBooks,
+          getOrders,
+          isLoggedin
         }}>
             {props.children}
         </FirebaseContext.Provider>

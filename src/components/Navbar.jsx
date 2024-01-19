@@ -21,6 +21,11 @@ function Navbar() {
                 Add Listing
               </a>
             </li>
+            <li class="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+              <a href="/book/orders" class="flex items-center font-semibold">
+                Orders
+              </a>
+            </li>
             
           </ul>
         </div>

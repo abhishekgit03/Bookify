@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import ListingPage from './pages/List'
 import Home from './pages/Home'
 import BookDetail from './pages/Detail'
+import Orders from './pages/Orders'
 
 function App() {
 
@@ -18,7 +19,8 @@ function App() {
       <Route path="/register" element={<Register/>} />
       <Route path="/login" element={<h1>Login</h1>} />
       <Route path="/book/list" element={<ListingPage/>} />
-      <Route path="/book/view/:bookId" element={<BookDetail/>} />
+      <Route path="/book/view/:bookId" element={<BookDetail/>}/>
+      <Route path="/book/orders" element={<Orders/>}/>
 
     </Routes>
     </div>
