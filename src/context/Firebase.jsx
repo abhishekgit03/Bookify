@@ -131,7 +131,7 @@ const firebaseConfig = {
         return result
       }
 
-      const getOrders = async(bookId) =>
+      const getOrders = async (bookId) =>
       {
         const collectionRef = collection(firestore, "books", bookId, "orders");
         const result = await getDocs(collectionRef);
@@ -139,7 +139,6 @@ const firebaseConfig = {
       }
 
       const isLoggedin = auth
-      
     
     return (
         <FirebaseContext.Provider value=

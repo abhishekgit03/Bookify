@@ -16,7 +16,7 @@ function Orders() {
         ?.then((books)=>setBooks(books.docs))
         }
     },[firebase])
-
+  
     console.log(books)
 
     if(!firebase.isLoggedin)
@@ -28,7 +28,7 @@ function Orders() {
     <div className='container mt-5 flex flex-wrap   flex-col sm:flex-row  gap-6 justify-center'>
         {books.map((book)=>(
           <BookCard
-          link={`/books/orders/${book.id}`}
+          link={`/book/orders/${book.id}`}
           key={book.id}
           id={book.id}
           {...book.data()}
